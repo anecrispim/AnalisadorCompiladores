@@ -1,12 +1,10 @@
 <?php
 error_reporting(0);
 $sCadeia = 'x = 10 while (x > 0){ print(x) X = x - 1 } if (x == 0) print(0) for';
-$iEstado = 0;
 
 $aEntradas = str_split(strtolower($sCadeia));
 $aEstados = [];
 $aPosicao = [];
-$aElementos = [];
 $aTokens = [];
 $aLexema = [];
 $sJson = file_get_contents('matrizTransicao.json');
@@ -64,19 +62,19 @@ for ($i = 0; $i < count($aEntradas); $i++) {
                 unset($aPosicao[$i - $j]);
                 unset($aTokens[$i - $j]);
                 $sLexema = sprintf('%s%s', $sLexema, $aLexema[$i - $j]);
-                $sEstado = sprintf('%s%s', $sEstado, $aEstados[$i - $j]);
+                $sEstado = sprintf('%s,%s', $sEstado, $aEstados[$i - $j]);
                 unset($aLexema[$i - $j]);
                 unset($aEstados[$i - $j]);
             }
             $aTokens[$i] = $aEstadosEspeciais[$iEstado];
             $aLexema[$i] = sprintf('%s%s', $sLexema, $aLexema[$i]);
-            $aEstados[$i] = ltrim(sprintf('%s,%s', $sEstado, $aEstados[$i]), 'g');
+            $aEstados[$i] = str_replace(',,', ',', ltrim(sprintf('%s,%s', $sEstado, $aEstados[$i]), ','));
             $aPosicao[$i] = $i - (strlen($aEstadosEspeciais[$iEstado])-1);
             $sLexema = '';
             $sEstado = '';
         } else if ($i != 0 && !in_array($aTokens[$i], $aNaoConcatena)) {
             if ($aTokens[$i] == $aTokens[$i - 1]) {
-                $aEstados[$i - 1] = ltrim(sprintf(',%s,%s', $aEstados[$i - 1], $iEstado), ',');
+                $aEstados[$i - 1] = str_replace(',,', ',', ltrim(sprintf(',%s,%s', $aEstados[$i - 1], $iEstado), ','));
                 $aLexema[$i - 1] = sprintf('%s%s', $aLexema[$i - 1], $aEntradas[$i]);
                 unset($aEstados[$i]);
                 unset($aLexema[$i]);

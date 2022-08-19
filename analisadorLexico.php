@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-$sCadeia = 'x = 10 while (x > 0){ print(x) X = x - 1 } if (x == 0) print(0) for';
+$sCadeia = 'x = 10; while (x > 0){ print(x) X = x - 1 } if (x == 0) print(0) for';
 
 $aEntradas = str_split(strtolower($sCadeia));
 $aEstados = [];
@@ -84,7 +84,7 @@ for ($i = 0; $i < count($aEntradas); $i++) {
         }                              
     } else {
         printf('Token não identificado para o lexema: %s', $aEntradas[$i]);
-        exit;
+        break;
     }
 }
 

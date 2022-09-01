@@ -1,50 +1,101 @@
 <?php
-error_reporting(0);
-$sCadeia = 'x = 10; while (x > 0){ print(x) X = x - 1 } if (x == 0) print(0) for';
+// $sCadeia = 'x = 10; while (x > 0){ print(x) X = x - 1 } if (x == 0) print(0) for';
+$sCadeia = 'function x (int a, int b) { x = a + b; if (x > 10){ print(x); } }';
 
+$sCadeia = str_replace(' ', '', $sCadeia);
 $aEntradas = str_split(strtolower($sCadeia));
 $aEstados = [];
 $aPosicao = [];
 $aTokens = [];
 $aLexema = [];
-$sJson = file_get_contents('matrizTransicao.json');
+$sJson = file_get_contents('matrizTransicao2.json');
 $aMatrizTransicao = json_decode($sJson, true);
+// $aEstadosFinais = [
+//       1 => 'ESPACO'
+//     , 2 => 'SIMBOLO' 
+//     , 3 => 'OPERADOR'
+//     , 4 => 'NUMERO'
+//     , 5 => 'OPERADORLOGICO'
+//     , 6 => 'OPERADORLOGICO'
+//     , 7 => 'VARIAVEL'
+//     , 8 => 'VARIAVEL'
+//     , 9 => 'VARIAVEL'
+//     , 10 => 'VARIAVEL'
+//     , 11 => 'VARIAVEL'
+//     , 12 => 'VARIAVEL'
+//     , 13 => 'VARIAVEL'
+//     , 14 => 'IF'
+//     , 15 => 'VARIAVEL'
+//     , 16 => 'VARIAVEL'
+//     , 17 => 'FOR'
+//     , 18 => 'VARIAVEL'
+//     , 19 => 'VARIAVEL'
+//     , 20 => 'VARIAVEL'
+//     , 21 => 'VARIAVEL'
+//     , 22 => 'PRINT'
+//     , 23 => 'WHILE'
+// ];
 $aEstadosFinais = [
-      1 => 'ESPACO'
-    , 2 => 'SIMBOLO' 
-    , 3 => 'OPERADOR'
-    , 4 => 'NUMERO'
-    , 5 => 'OPERADORLOGICO'
-    , 6 => 'OPERADORLOGICO'
-    , 7 => 'VARIAVEL'
-    , 8 => 'VARIAVEL'
-    , 9 => 'VARIAVEL'
-    , 10 => 'VARIAVEL'
-    , 11 => 'VARIAVEL'
-    , 12 => 'VARIAVEL'
-    , 13 => 'VARIAVEL'
-    , 14 => 'IF'
-    , 15 => 'VARIAVEL'
-    , 16 => 'VARIAVEL'
-    , 17 => 'FOR'
-    , 18 => 'VARIAVEL'
-    , 19 => 'VARIAVEL'
-    , 20 => 'VARIAVEL'
-    , 21 => 'VARIAVEL'
-    , 22 => 'PRINT'
-    , 23 => 'WHILE'
+    1 => 'AP'
+  , 2 => 'FP' 
+  , 3 => 'OPE'
+  , 4 => 'VIRG'
+  , 5 => 'OPE'
+  , 6 => 'CONST'
+  , 7 => 'PV'
+  , 8 => 'OPELOG'
+  , 9 => 'ATRIB'
+  , 10 => 'ID'
+  , 11 => 'ID'
+  , 12 => 'ID'
+  , 13 => 'ID'
+  , 14 => 'ID'
+  , 15 => 'ID'
+  , 16 => 'AC'
+  , 17 => 'FC'
+  , 18 => 'ID'
+  , 19 => 'IF'
+  , 20 => 'ID'
+  , 21 => 'ID'
+  , 22 => 'ID'
+  , 23 => 'ID'
+  , 24 => 'INT'
+  , 25 => 'ID'
+  , 26 => 'ID'
+  , 27 => 'ID'
+  , 28 => 'ID'
+  , 29 => 'ID'
+  , 30 => 'ID'
+  , 31 => 'PRINT'
+  , 32 => 'WHILE'
+  , 33 => 'ID'
+  , 34 => 'ID'
+  , 35 => 'FUNCTION'
 ];
+
+// $aEstadosEspeciais = [
+//       14 => 'IF'
+//     , 17 => 'FOR'
+//     , 22 => 'PRINT'
+//     , 23 => 'WHILE'
+// ];
 
 $aEstadosEspeciais = [
-      14 => 'IF'
-    , 17 => 'FOR'
-    , 22 => 'PRINT'
-    , 23 => 'WHILE'
+    19 => 'IF'
+  , 24 => 'INT'
+  , 31 => 'PRINT'
+  , 32 => 'WHILE'
+  , 35 => 'FUNCTION'
 ];
 
+// $aNaoConcatena = [
+//     2 => 'SIMBOLO'
+//   , 3 => 'OPERADOR'
+// ];
 $aNaoConcatena = [
-      2 => 'SIMBOLO'
-    , 3 => 'OPERADOR'
+    3 => 'OPE'
+  , 5 => 'OPE'
+  ,17 => 'FC'
 ];
 $sLexema = '';
 $sEstado = '';

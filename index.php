@@ -9,4 +9,5 @@ if (FUNC()) {
     print('<br>Não aceito!');
 }
 
+include('analisadorSintaticoDescPreditivo.php');
 ?>

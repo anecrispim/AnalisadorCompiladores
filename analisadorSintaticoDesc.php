@@ -17,6 +17,8 @@ GRAMÁTICA ANALISADOR:
 <ELEMENTOS> ::= <SE>|<WHI>|<PRIN>|<CHAM><SEG>;
 <SEG> ::= <SE> | î;
 */
+
+print('<h3>Analisador Sintático Descendente Recursivo</h3>');
 $aTks = [];
 foreach ($aTokens as $sToken) { 
     $aTks[] = $sToken;

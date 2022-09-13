@@ -1,4 +1,5 @@
 <?php
+print('<h3>Analisador Léxico</h3>');
 // $sCadeia = 'x = 10; while (x > 0){ print(x) X = x - 1 } if (x == 0) print(0) for';
 $sCadeia = 'function x (int a, int b) { x = a + b; if (x > 10){ print(x); } }';
 

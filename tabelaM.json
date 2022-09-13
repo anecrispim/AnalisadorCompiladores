@@ -1,0 +1,56 @@
+{
+    "FUNC" : {
+        "FUNCTION": "FUNCTION ID AP PARAM FP BLOCO"
+    },
+    "PARAM": {
+        "INT": "INT ID VIRGULA"
+    },
+    "VIRGULA": {
+        "VIRG": "VIRG PARAM"
+        , "FP": ""
+    },
+    "BLOCO": {
+        "AC": "AC ELEMENTOS FC"
+    },
+    "SE": {
+        "IF": "IF AP ID OPELOG CONST FP BLOCO"
+    },
+    "WHI": {
+        "WHILE": "WHILE AP ID PAMW FP BLOCO"
+    },
+    "PAMW": {
+        "OPELOG": "OPELOG CONST"
+    },
+    "PRIN": {
+        "PRINT": "PRINT AP ID FP PV"
+    },
+    "CHAM": {
+        "ID": "ID ELEMS"
+    },
+    "ELEMS": {
+        "ATRIB": "ATRIB PAMDEC",
+        "AP": "AP PARAM FP PV"
+    },
+    "PAMDEC": {
+        "ID": "ID OPE EID",
+        "CONST": "CONST PV"
+    },
+    "EID": {
+        "ID": "ID PV",
+        "CONST": "CONST PV"
+    },
+    "ECONST": {
+        "OPE": "OPE ID",
+        "PV": "PV"
+    },
+    "ELEMENTOS": {
+        "IF": "IF AP ID OPELOG CONST FP BLOCO",
+        "WHILE": "WHILE AP ID PAMW FP BLOCO",
+        "PRINT": "PRINT AP ID FP PV",
+        "ID": "ID ELEMS IF AP ID OPELOG CONST FP BLOCO"
+    },
+    "SEG": {
+        "IF": "IF AP ID OPELOG CONST FP BLOCO",
+        "PV": ""
+    }
+}

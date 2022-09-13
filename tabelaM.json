@@ -47,7 +47,7 @@
         "IF": "IF AP ID OPELOG CONST FP BLOCO",
         "WHILE": "WHILE AP ID PAMW FP BLOCO",
         "PRINT": "PRINT AP ID FP PV",
-        "ID": "ID ELEMS IF AP ID OPELOG CONST FP BLOCO"
+        "ID": "ID ELEMS SEG"
     },
     "SEG": {
         "IF": "IF AP ID OPELOG CONST FP BLOCO",

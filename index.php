@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(0);
 include('analisadorLexico.php');
 include('analisadorSintaticoDesc.php');
@@ -10,4 +11,11 @@ if (FUNC()) {
 }
 
 include('analisadorSintaticoDescPreditivo.php');
+include('analisadorSLR.php');
+
+$aTks = [];
+foreach ($aTokens as $sToken) { 
+    $aTks[] = $sToken;
+}
+
 ?>

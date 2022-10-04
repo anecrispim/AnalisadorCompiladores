@@ -96,12 +96,6 @@ foreach ($aTokens as $sToken) {
     $aTks[] = $sToken;
 }
 
-$aNaoTerminal = ['FUNC', 'PARAM', 'VIRGULA', 'BLOCO', 'SE', 'WHI', 'PAMW', 'PRIN', 'CHAM', 'ELEMS', 'PAMDEC', 'EID', 'ECONST', 'ELEMENTOS', 'SEG'];
-$aPilha[] = '$';
-$x = $aTks[0];
-addElmPilha($aTabelaM['FUNC']['FUNCTION']);
-
-//var_dump($aAction);
 $aPilhaEstados[] = 0;
 $a = $aTks[0];
 

@@ -1,0 +1,2 @@
+chamar o analisador semantico quando é feito a redução no analisador sintatico
+o código intermediário é gerado quando é feito a redução também (através da criação de uma árvore de objetos)

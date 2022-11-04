@@ -1,3 +1,5 @@
+<div class="ui segment">
+    <h4 class="ui dividing header">Analisador Sintático Descendente Recursivo</h4>
 <?php
 /*
 GRAMÁTICA ANALISADOR:
@@ -18,22 +20,24 @@ GRAMÁTICA ANALISADOR:
 <SEG> ::= <SE> | î;
 */
 
-print('<h3>Analisador Sintático Descendente Recursivo</h3>');
 $aTks = [];
 foreach ($aTokens as $sToken) { 
     $aTks[] = $sToken;
 }
 
-$iCont = 0;
-function term($sTermo) {
-    global $iCont, $aTks;
-    if ($aTks[$iCont] == $sTermo) {
-        $iCont++;
-        return true;
-    }
-    return false;
+$sMsg = '
+    <div class="ui %s message">
+        <i class="close icon"></i>
+        <div class="header">%s</div>
+        <p>%s</p>
+    </div>
+';
+
+if (FUNC()) {
+    printf($sMsg, 'positive', 'Sucesso na análise sintática!', 'Linguagem aceita.');
+} else {
+    printf($sMsg, 'negative', 'Erro na análise sintática!', 'Linguagem NÃO aceita.');
 }
-print('<br>');
 
 function FUNC() {
     print(htmlspecialchars('<FUNC> ::= FUNCTION ID AP <PARAM> <BLOCO>;'));
@@ -106,6 +110,7 @@ function ELEMENTOS() {
     return SE() || WHI() || PRIN() || (CHAM() && SEG());
 }
 function SEG() {
+    global $iCont;
     print(htmlspecialchars('<SEG> ::= <SE> | î;'));
     print('<br>');
     if (SE()) {
@@ -118,3 +123,4 @@ function SEG() {
     }
 }
 ?>
+</div>

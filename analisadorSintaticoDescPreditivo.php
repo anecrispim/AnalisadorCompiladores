@@ -1,3 +1,5 @@
+<div class="ui segment">
+    <h4 class="ui dividing header">Analisador Sintático Descendente Preditivo</h4>
 <?php
 /*
 ----------------------------------------------------
@@ -56,61 +58,8 @@ FOLLOW(ELEMENTOS) = {FC}
 FOLLOW(SEG) = {$}
 */
 
-//topo da pilha será sempre o último valor do array pilha
-//o valor inicial do array pilha será '$'
-print('<h3>Analisador Sintático Descendente Preditivo</h3>');
-
-$aTks = [];
-foreach ($aTokens as $sToken) { 
-    $aTks[] = $sToken;
-}
-
-$aNaoTerminal = ['FUNC', 'PARAM', 'VIRGULA', 'BLOCO', 'SE', 'WHI', 'PAMW', 'PRIN', 'CHAM', 'ELEMS', 'PAMDEC', 'EID', 'ECONST', 'ELEMENTOS', 'SEG'];
-$aPilha[] = '$';
-$x = $aTks[0];
-$sJson = file_get_contents('tabelaM.json');
-$aTabelaM = json_decode($sJson, true);
-addElmPilha($aTabelaM['FUNC']['FUNCTION']);
-
-//var_dump($aPilha);
-
-
-while (count($aPilha) > 1) {
-    $sTopo = end($aPilha);
-    print_r($aPilha);
-    if (!in_array($sTopo, $aNaoTerminal)) {
-        printf(" |-----| Token (%s) <br>", $x);
-        //print("<br>");
-        if ($sTopo == "") {
-            array_pop($aPilha);
-        } else if ($sTopo == $x) {
-            array_pop($aPilha);
-            $x = nextToken();
-        } else {
-            print('Erro!');
-            exit();
-        }
-    } else {
-       $sProducao = $aTabelaM[$sTopo][$x];
-       //print($sProducao);
-       print("<br>");
-       array_pop($aPilha);
-       addElmPilha($sProducao);
-    }
-}
-print_r($aPilha);
-
 $iContFuncao = 0;
-function nextToken() {
-    global $iContFuncao, $aTks;
-    $iContFuncao++;
-    return $aTks[$iContFuncao];
-}
-function addElmPilha($sElementos) {
-    global $aPilha;
-    $aInicio = explode(' ', $sElementos);
-    for ($i=(count($aInicio)-1); $i >= 0; $i--) { 
-        array_push($aPilha, $aInicio[$i]);
-    }
-}
+
+print_r($oCompilador->analisadorSintaticoDescendentePreditivo());
 ?>
+</div>

@@ -448,6 +448,7 @@ class Compilador {
         $aPilhaEstados[] = 0;
         $a = $aTks[0];
 
+        $iCont = 0;
         while (true) {
             $s = end($aPilhaEstados);
             printf('<br>%s<br>', $a);
@@ -458,6 +459,7 @@ class Compilador {
                 $a = $this->nextToken($aTks);
             } else if (strpos($aAction[$s][$a], 'R') !== false){
                 $r = intval(str_replace('R', '', $aAction[$s][$a]));
+                print($aTks[$iCont]);
                 array_splice($aPilhaEstados, $r);
                 $g = $aGoTo[$s];
                 array_push($aPilhaEstados, $g);
@@ -467,6 +469,28 @@ class Compilador {
                 $sErro = 'Erro na análise sintática';
                 exit;
             }
+            $iCont++;
+        }
+    }
+    public function analisadorSemantico() {
+        $oPrograma = new Programa();
+        $oFunction = new Funcao();
+        $oParam = new Parametro();
+        foreach ($this->getATokens() as $sToken) { 
+            if ($sToken == 'FUNCTION') {
+                $oFunction->setSFunction($sToken);
+                continue;
+            } else if ($sToken == 'ID' && !empty($oFunction->getSFunction())) {
+                $oFunction->setSId($sToken);
+                continue;
+            } else if ($sToken == 'AP' && !empty($oFunction->getSId())) {
+                $oFunction->setSAp($sToken);
+                continue;
+            } else if ($sToken == 'INT' && !empty($oFunction->getSAp())) {
+
+            }
+
+            return false;
         }
     }
 }

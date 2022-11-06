@@ -15,7 +15,7 @@
     <a class="item" href="index.php?tipo=sintDesc">Analisador Sintático Descendente</a>
     <a class="item" href="index.php?tipo=sintDescPred">Analisador Sintático Descendente Preditivo</a>
     <a class="item" href="index.php?tipo=sintSLR">Analisador Sintático Ascendente SLR</a>
-    <a class="item <?=$sTipo == 'semantico' ? 'active' : ''?>" href="index.php?tipo=sintSLR">Analisador Semântico</a>
+    <a class="item <?=$sTipo == 'semantico' ? 'active' : ''?>" href="index.php?tipo=semantico">Analisador Semântico</a>
 </div>
 <div class="ui three column grid">
     <div class="column">

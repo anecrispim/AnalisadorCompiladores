@@ -59,5 +59,8 @@ switch ($sTipo) {
     case 'sintSLR':
         include 'analisadorSLR.php';
         break;
+    case 'semantico':
+        include 'analisadorSemantico.php';
+        break;
 }
 ?>

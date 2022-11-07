@@ -1,4 +1,17 @@
 <?php
+require 'Programa.class.php';
+require 'Funcao.class.php';
+require 'Parametro.class.php';
+require 'Virgula.class.php';
+require 'Bloco.class.php';
+require 'Elementos.class.php';
+require 'Chamada.class.php';
+require 'Eid.class.php';
+require 'Elems.class.php';
+require 'Pamdec.class.php';
+require 'Printa.class.php';
+require 'Se.class.php';
+require 'Seg.class.php';
 class Compilador {
     private $sCadeia;
     private $aEntradas;
@@ -476,18 +489,130 @@ class Compilador {
         $oPrograma = new Programa();
         $oFunction = new Funcao();
         $oParam = new Parametro();
+        $oParamV = new Parametro();
+        $oVirgula = new Virgula();
+        $oBloco = new Bloco();
+        $oElementosB = new Elementos();
+        $oChamada = new Chamada();
+        $oElems = new Elems();
+        $oPamdec = new Pamdec();
+        $oEid = new Eid();
+        $oSeg = new Seg();
+        $oSe = new Se();
+        $oElementosS = new Elementos();
+        $oBlocoS = new Bloco();
+        $oPrint = new Printa();
         foreach ($this->getATokens() as $sToken) { 
-            if ($sToken == 'FUNCTION') {
-                $oFunction->setSFunction($sToken);
-                continue;
-            } else if ($sToken == 'ID' && !empty($oFunction->getSFunction())) {
-                $oFunction->setSId($sToken);
-                continue;
-            } else if ($sToken == 'AP' && !empty($oFunction->getSId())) {
-                $oFunction->setSAp($sToken);
-                continue;
-            } else if ($sToken == 'INT' && !empty($oFunction->getSAp())) {
-
+            if (empty($oFunction->getOParam())) {
+                if ($sToken == 'FUNCTION') {
+                    $oFunction->setSFunction($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oFunction->getSFunction()) && empty($oParam->getSInt())) {
+                    $oFunction->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'AP' && !empty($oFunction->getSId())) {
+                    $oFunction->setSAp($sToken);
+                    continue;
+                } else if ($sToken == 'INT' && !empty($oFunction->getSAp())) {
+                    $oParam->setSInt($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oParam->getSInt())) {
+                    if (!empty($oParamV->getSInt())) {
+                        $oParamV->setSId($sToken);
+                        continue;
+                    }
+                    $oParam->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'VIRG' && !empty($oParam->getSId())) {
+                    $oVirgula->setSVirg($sToken);
+                    continue;
+                } else if ($sToken == 'INT' && !empty($oVirgula->getSVirg())) {
+                    $oParamV->setSInt($sToken);
+                    continue;
+                } else if ($sToken == 'FP' && !empty($oParam->getSId())) {
+                    $oFunction->setSFp($sToken);
+                    $oVirgula->setOParam($oParamV);
+                    $oParam->setOVirg($oVirgula);
+                    $oFunction->setOParam($oParam);
+                    continue;
+                }
+            } else if (empty($oFunction->getOBloco())) {
+                if ($sToken == 'AC' && !empty($oFunction->getSFp()) && empty($oSe->getSFp())) {
+                    $oBloco->setSAc($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oBloco->getSAc()) && empty($oElems->getSAtrib())) {
+                    $oChamada->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'ATRIB' && !empty($oChamada->getSId())) {
+                    $oElems->setSAtrib($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oElems->getSAtrib()) && empty($oPamdec->getSOpe())) {
+                    $oPamdec->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'OPE' && !empty($oPamdec->getSId())) {
+                    $oPamdec->setSOpe($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oPamdec->getSOpe()) && empty($oSe->getSAp())) {
+                    $oEid->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'PV' && !empty($oEid->getSId()) && empty($oPrint->getSFp())) {
+                    $oEid->setSPv($sToken);
+                    $oPamdec->setOEid($oEid);
+                    $oElems->setOPamdec($oPamdec);
+                    $oChamada->setOElems($oElems);
+                    $oElementosB->setOCham($oChamada);
+                    continue;
+                } else if ($sToken == 'IF' && !empty($oElementosB->getOCham())) {
+                    $oSe->setSIf($sToken);
+                    continue;
+                } else if ($sToken == 'AP' && !empty($oSe->getSIf()) && empty($oPrint->getSPrint())) {
+                    $oSe->setSAp($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oSe->getSAp()) && empty($oPrint->getSAp())) {
+                    $oSe->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'OPELOG' && !empty($oSe->getSId())) {
+                    $oSe->setSOpeLog($sToken);
+                    continue;
+                } else if ($sToken == 'CONST' && !empty($oSe->getSOpeLog())) {
+                    $oSe->setSConst($sToken);
+                    continue;
+                } else if ($sToken == 'FP' && !empty($oSe->getSConst()) && empty($oPrint->getSId())) {
+                    $oSe->setSFp($sToken);
+                    continue;
+                } else if ($sToken == 'AC' && !empty($oSe->getSFp())) {
+                    $oBlocoS->setSAc($sToken);
+                    continue;
+                } else if ($sToken == 'PRINT' && !empty($oBlocoS->getSAc())) {
+                    $oPrint->setSPrint($sToken);
+                    continue;
+                } else if ($sToken == 'AP' && !empty($oPrint->getSPrint())) {
+                    $oPrint->setSAp($sToken);
+                    continue;
+                } else if ($sToken == 'ID' && !empty($oPrint->getSAp())) {
+                    $oPrint->setSId($sToken);
+                    continue;
+                } else if ($sToken == 'FP' && !empty($oPrint->getSId())) {
+                    $oPrint->setSFp($sToken);
+                    continue;
+                } else if ($sToken == 'PV' && !empty($oPrint->getSFp())) {
+                    $oPrint->setSPv($sToken);
+                    $oElementosS->setOPrint($oPrint);
+                    $oBlocoS->setOElementos($oElementosS);
+                    continue;
+                } else if ($sToken == 'FC' && !empty($oBlocoS->getOElementos()) && empty($oBloco->getOElementos())) {
+                    $oBlocoS->setSFc($sToken);
+                    $oSe->setOBloco($oBlocoS);
+                    $oSeg->setOSe($oSe);
+                    $oElementosB->setOSeg($oSeg);
+                    $oBloco->setOElementos($oElementosB);
+                    continue;
+                } else if ($sToken == 'FC' && !empty($oBloco->getOElementos())) {
+                    $oBloco->setSFc($sToken);
+                    $oFunction->setOBloco($oBloco);
+                    $oPrograma->setOFunction($oFunction);
+                    return $oPrograma;
+                }
             }
 
             return false;

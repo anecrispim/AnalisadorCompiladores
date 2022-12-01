@@ -64,6 +64,7 @@ switch ($sTipo) {
         include 'analisadorSemantico.php';
         break;
     case 'gc' :
+        include 'analisadorSemantico.php';
         include 'geraCodigo.php';
         break;
 }

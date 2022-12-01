@@ -2,7 +2,6 @@
 class Chamada extends AbstractAssembly {
     private $sId;
     private $oElems;
-    private static $iCont = 3;
 
     /**
      * Get the value of sId
@@ -34,7 +33,8 @@ class Chamada extends AbstractAssembly {
 
     public function toAssembly() {
         $oElems = $this->getOElems();
-        $sCodigo = sprintf('$%s %s', $this->iCont, $oElems->getSCodigoAssembly());
+        $oElems->toAssembly();
+        $sCodigo = sprintf('$%s %s', $this->getSEndereco(), $oElems->getSCodigoAssembly());
         $this->setSCodigoAssembly($sCodigo);
         $this->iCont++;
     }

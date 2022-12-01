@@ -123,11 +123,13 @@ class Pamdec extends AbstractAssembly {
 
     public function toAssembly() {
         if (!empty($this->getSId())) {
+            $oEid = $this->getOEid();
+            $oEid->toAssembly();
             $sCodigo = sprintf(
                 '$%s %s %s'
                 , $this->getSEndereco()
                 , $this->getSLexOpe()
-                , $this->getOEid()->getSCodigoAssembly()
+                , $oEid->getSCodigoAssembly()
             );
         } else {
             $sCodigo = sprintf(

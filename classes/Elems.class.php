@@ -94,6 +94,7 @@ class Elems extends AbstractAssembly {
 
     public function toAssembly() {
         $oPamdec = $this->getOPamdec();
+        $oPamdec->toAssembly();
         if (!empty($this->getSAtrib())) {
             $sCodigo = sprintf('= %s', $oPamdec->getSCodigoAssembly());
             $this->setSCodigoAssembly($sCodigo);

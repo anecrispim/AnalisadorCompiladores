@@ -140,7 +140,7 @@ class Se extends AbstractAssembly {
      * Transforma em assembly a condição if
      */
     public function toAssembly() {
-        $sImmediate = sprintf('li $2, %s', $this->getSConstLex());
+        $sImmediate = sprintf('li $2, %s <br>', $this->getSConstLex());
         if ($this->getSOpeLogLex() == "==") {
             $sCodigo = sprintf('%s beq $1, $2, %s', $sImmediate, $this->getSEndereco());
         } else if ($this->getSOpeLogLex() == "!=") {

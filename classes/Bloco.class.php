@@ -3,7 +3,11 @@ class Bloco {
     private $sAc;
     private $sFc;
     private $oElementos;
-    private $iEndereco = 100;
+    private $iEndereco;
+
+    function __construct($i) {
+        $this->setIEndereco($i+1);
+    }
 
     /**
      * Get the value of sAc

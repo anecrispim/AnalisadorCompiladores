@@ -492,7 +492,7 @@ class Compilador {
         $oParam = new Parametro();
         $oParamV = new Parametro();
         $oVirgula = new Virgula();
-        $oBloco = new Bloco();
+        $oBloco = new Bloco(99);
         $oElementosB = new Elementos();
         $oChamada = new Chamada();
         $oElems = new Elems();
@@ -501,8 +501,9 @@ class Compilador {
         $oSeg = new Seg();
         $oSe = new Se();
         $oElementosS = new Elementos();
-        $oBlocoS = new Bloco();
+        $oBlocoS = new Bloco(100);
         $oPrint = new Printa();
+        $iCont = 0;
         foreach ($this->getATokens() as $sToken) { 
             if (empty($oFunction->getOParam())) {
                 if ($sToken == 'FUNCTION') {
@@ -510,6 +511,7 @@ class Compilador {
                     continue;
                 } else if ($sToken == 'ID' && !empty($oFunction->getSFunction()) && empty($oParam->getSInt())) {
                     $oFunction->setSId($sToken);
+                    $iCont++;
                     continue;
                 } else if ($sToken == 'AP' && !empty($oFunction->getSId())) {
                     $oFunction->setSAp($sToken);
@@ -523,6 +525,7 @@ class Compilador {
                         continue;
                     }
                     $oParam->setSId($sToken);
+                    $iCont++;
                     continue;
                 } else if ($sToken == 'VIRG' && !empty($oParam->getSId())) {
                     $oVirgula->setSVirg($sToken);
@@ -543,18 +546,27 @@ class Compilador {
                     continue;
                 } else if ($sToken == 'ID' && !empty($oBloco->getSAc()) && empty($oElems->getSAtrib())) {
                     $oChamada->setSId($sToken);
+                    $oChamada->setSEndereco(1);
                     continue;
                 } else if ($sToken == 'ATRIB' && !empty($oChamada->getSId())) {
                     $oElems->setSAtrib($sToken);
                     continue;
                 } else if ($sToken == 'ID' && !empty($oElems->getSAtrib()) && empty($oPamdec->getSOpe())) {
                     $oPamdec->setSId($sToken);
+                    $oPamdec->setSEndereco($iCont);
+                    $oPamdec->setSEndereco($iCont);
+                    $iCont++;
                     continue;
                 } else if ($sToken == 'OPE' && !empty($oPamdec->getSId())) {
                     $oPamdec->setSOpe($sToken);
+                    $iKey = array_search($sToken, $this->getATokens());
+                    $sLexema = $this->getALexemas()[$iKey];
+                    $oPamdec->setSLexOpe($sLexema);
                     continue;
                 } else if ($sToken == 'ID' && !empty($oPamdec->getSOpe()) && empty($oSe->getSAp())) {
                     $oEid->setSId($sToken);
+                    $oEid->setSEndereco($iCont);
+                    $iCont++;
                     continue;
                 } else if ($sToken == 'PV' && !empty($oEid->getSId()) && empty($oPrint->getSFp())) {
                     $oEid->setSPv($sToken);
@@ -565,19 +577,20 @@ class Compilador {
                     continue;
                 } else if ($sToken == 'IF' && !empty($oElementosB->getOCham())) {
                     $oSe->setSIf($sToken);
+                    $oSe->setSEndereco($oBlocoS->getIEndereco());
                     continue;
                 } else if ($sToken == 'AP' && !empty($oSe->getSIf()) && empty($oPrint->getSPrint())) {
                     $oSe->setSAp($sToken);
                     continue;
                 } else if ($sToken == 'ID' && !empty($oSe->getSAp()) && empty($oPrint->getSAp())) {
                     $oSe->setSId($sToken);
+                    $iCont++;
                     continue;
                 } else if ($sToken == 'OPELOG' && !empty($oSe->getSId())) {
                     $oSe->setSOpeLog($sToken);
                     $iKey = array_search($sToken, $this->getATokens());
                     $sLexema = $this->getALexemas()[$iKey];
                     $oSe->setSOpeLogLex($sLexema);
-                    $oSe->setSEndereco($oBlocoS->getIEndereco());
                     continue;
                 } else if ($sToken == 'CONST' && !empty($oSe->getSOpeLog())) {
                     $oSe->setSConst($sToken);
@@ -599,6 +612,7 @@ class Compilador {
                     continue;
                 } else if ($sToken == 'ID' && !empty($oPrint->getSAp())) {
                     $oPrint->setSId($sToken);
+                    $iCont++;
                     continue;
                 } else if ($sToken == 'FP' && !empty($oPrint->getSId())) {
                     $oPrint->setSFp($sToken);

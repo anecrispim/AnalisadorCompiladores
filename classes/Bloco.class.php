@@ -3,6 +3,7 @@ class Bloco {
     private $sAc;
     private $sFc;
     private $oElementos;
+    private $iEndereco = 100;
 
     /**
      * Get the value of sAc
@@ -44,5 +45,19 @@ class Bloco {
      */
     public function setOElementos($oElementos) {
         $this->oElementos = $oElementos;
+    }
+
+    /**
+     * Get the value of iEndereco
+     */
+    public function getIEndereco() {
+        return $this->iEndereco;
+    }
+
+    /**
+     * Set the value of iEndereco
+     */
+    public function setIEndereco($iEndereco) {
+        $this->iEndereco += $iEndereco;
     }
 }

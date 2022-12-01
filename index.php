@@ -21,6 +21,7 @@
         <a class="item <?=$sTipo == 'sintDescPred' ? 'active' : ''?>" href="index.php?tipo=sintDescPred">Analisador Sintático Descendente Preditivo</a>
         <a class="item <?=$sTipo == 'sintSLR' ? 'active' : ''?>" href="index.php?tipo=sintSLR">Analisador Sintático Ascendente SLR</a>
         <a class="item <?=$sTipo == 'semantico' ? 'active' : ''?>" href="index.php?tipo=semantico">Analisador Semântico</a>
+        <a class="item <?=$sTipo == 'gc' ? 'active' : ''?>" href="index.php?tipo=gc">Geração código</a>
     </div>
     <div class="ui segment">
         <form class="ui form" method="POST">
@@ -61,6 +62,9 @@ switch ($sTipo) {
         break;
     case 'semantico':
         include 'analisadorSemantico.php';
+        break;
+    case 'gc' :
+        include 'geraCodigo.php';
         break;
 }
 ?>

@@ -1,11 +1,13 @@
 <?php
-class Pamdec {
+class Pamdec extends AbstractAssembly {
     private $sId;
     private $sOpe;
+    private $sLexOpe;
     private $oId;
     private $sConst;
     private $oEconst;
     private $oEid;
+    private $sLexConst;
 
     /**
      * Get the value of sId
@@ -89,5 +91,51 @@ class Pamdec {
      */
     public function setOEid($oEid) {
         $this->oEid = $oEid;
+    }
+
+    /**
+     * Get the value of sLexConst
+     */
+    public function getSLexConst() {
+        return $this->sLexConst;
+    }
+
+    /**
+     * Set the value of sLexConst
+     */
+    public function setSLexConst($sLexConst) {
+        $this->sLexConst = $sLexConst;
+    }
+
+    /**
+     * Get the value of sLexOpe
+     */
+    public function getSLexOpe() {
+        return $this->sLexOpe;
+    }
+
+    /**
+     * Set the value of sLexOpe
+     */
+    public function setSLexOpe($sLexOpe) {
+        $this->sLexOpe = $sLexOpe;
+    }
+
+    public function toAssembly() {
+        if (!empty($this->getSId())) {
+            $sCodigo = sprintf(
+                '$%s %s %s'
+                , $this->getSEndereco()
+                , $this->getSLexOpe()
+                , $this->getOEid()->getSCodigoAssembly()
+            );
+        } else {
+            $sCodigo = sprintf(
+                '%s %s'
+                , $this->getSLexConst()
+                , $this->getOEconst()->getSCodigoAssembly()
+            );
+        }
+        $this->setSCodigoAssembly($sCodigo);
     }
 }

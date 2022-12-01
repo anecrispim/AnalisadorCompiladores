@@ -1,5 +1,5 @@
 <?php
-class Elems {
+class Elems extends AbstractAssembly {
     private $sAtrib;
     private $oPamdec;
     private $sAp;
@@ -90,5 +90,13 @@ class Elems {
      */
     public function setSPv($sPv) {
         $this->sPv = $sPv;
+    }
+
+    public function toAssembly() {
+        $oPamdec = $this->getOPamdec();
+        if (!empty($this->getSAtrib())) {
+            $sCodigo = sprintf('= %s', $oPamdec->getSCodigoAssembly());
+            $this->setSCodigoAssembly($sCodigo);
+        }
     }
 }

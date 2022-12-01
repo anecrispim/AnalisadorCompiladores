@@ -1,4 +1,5 @@
 <?php
+require 'AbstractAssembly.class.php';
 require 'Programa.class.php';
 require 'Funcao.class.php';
 require 'Parametro.class.php';
@@ -573,9 +574,16 @@ class Compilador {
                     continue;
                 } else if ($sToken == 'OPELOG' && !empty($oSe->getSId())) {
                     $oSe->setSOpeLog($sToken);
+                    $iKey = array_search($sToken, $this->getATokens());
+                    $sLexema = $this->getALexemas()[$iKey];
+                    $oSe->setSOpeLogLex($sLexema);
+                    $oSe->setSEndereco($oBlocoS->getIEndereco());
                     continue;
                 } else if ($sToken == 'CONST' && !empty($oSe->getSOpeLog())) {
                     $oSe->setSConst($sToken);
+                    $iKey = array_search($sToken, $this->getATokens());
+                    $sLexema = $this->getALexemas()[$iKey];
+                    $oSe->setSConstLex($sLexema);
                     continue;
                 } else if ($sToken == 'FP' && !empty($oSe->getSConst()) && empty($oPrint->getSId())) {
                     $oSe->setSFp($sToken);

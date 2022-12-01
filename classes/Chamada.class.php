@@ -1,7 +1,8 @@
 <?php
-class Chamada {
+class Chamada extends AbstractAssembly {
     private $sId;
     private $oElems;
+    private static $iCont = 3;
 
     /**
      * Get the value of sId
@@ -29,5 +30,12 @@ class Chamada {
      */
     public function setOElems($oElems) {
         $this->oElems = $oElems;
+    }
+
+    public function toAssembly() {
+        $oElems = $this->getOElems();
+        $sCodigo = sprintf('$%s %s', $this->iCont, $oElems->getSCodigoAssembly());
+        $this->setSCodigoAssembly($sCodigo);
+        $this->iCont++;
     }
 }

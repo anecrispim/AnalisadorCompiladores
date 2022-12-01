@@ -1,11 +1,12 @@
 <?php
-
-class Se {
+class Se extends AbstractAssembly {
     private $sIf;
     private $sAp;
     private $sId;
     private $sOpeLog;
+    private $sOpeLogLex;
     private $sConst;
+    private $sConstLex;
     private $sFp;
     private $oBloco;
 
@@ -105,5 +106,54 @@ class Se {
      */
     public function setOBloco($oBloco) {
         $this->oBloco = $oBloco;
+    }
+
+    /**
+     * Get the value of sOpeLogLex
+     */
+    public function getSOpeLogLex() {
+        return $this->sOpeLogLex;
+    }
+
+    /**
+     * Set the value of sOpeLogLex
+     */
+    public function setSOpeLogLex($sOpeLogLex) {
+        $this->sOpeLogLex = $sOpeLogLex;
+    }
+
+    /**
+     * Get the value of sConstLex
+     */
+    public function getSConstLex() {
+        return $this->sConstLex;
+    }
+
+    /**
+     * Set the value of sConstLex
+     */
+    public function setSConstLex($sConstLex) {
+        $this->sConstLex = $sConstLex;
+    }
+    
+    /**
+     * Transforma em assembly a condição if
+     */
+    public function toAssembly() {
+        $sImmediate = sprintf('li $2, %s', $this->getSConstLex());
+        if ($this->getSOpeLogLex() == "==") {
+            $sCodigo = sprintf('%s beq $1, $2, %s', $sImmediate, $this->getSEndereco());
+        } else if ($this->getSOpeLogLex() == "!=") {
+            $sCodigo = sprintf('%s bne $1, $2, %s', $sImmediate, $this->getSEndereco());
+        } else if ($this->getSOpeLogLex() == ">") {
+            $sCodigo = sprintf('%s bgt $1, $2, %s', $sImmediate, $this->getSEndereco());
+        } else if ($this->getSOpeLogLex() == "<") {
+            $sCodigo = sprintf('%s blt $1, $2, %s', $sImmediate, $this->getSEndereco());
+        } else if ($this->getSOpeLogLex() == ">=") {
+            $sCodigo = sprintf('%s bge $1, $2, %s', $sImmediate, $this->getSEndereco());
+        } else if ($this->getSOpeLogLex() == "<=") {
+            $sCodigo = sprintf('%s ble $1, $2, %s', $sImmediate, $this->getSEndereco());
+        }
+        $this->setSCodigoAssembly($sCodigo);
     }
 }

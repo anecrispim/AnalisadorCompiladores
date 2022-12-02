@@ -1,5 +1,5 @@
 <?php
-class Printa {
+class Printa extends AbstractAssembly {
     private $sPrint;
     private $sAp;
     private $sId;
@@ -74,5 +74,10 @@ class Printa {
      */
     public function setSPv($sPv) {
         $this->sPv = $sPv;
+    }
+
+    public function toAssembly() {
+        $sCodigo = sprintf('<br>lb%s: <br> move $a0, $v0 <br> syscall', $this->getSEndereco());
+        $this->setSCodigoAssembly($sCodigo);
     }
 }

@@ -34,8 +34,22 @@ class Chamada extends AbstractAssembly {
     public function toAssembly() {
         $oElems = $this->getOElems();
         $oElems->toAssembly();
-        $sCodigo = sprintf('$%s %s', $this->getSEndereco(), $oElems->getSCodigoAssembly());
+        $oPamdec = $oElems->getOPamdec();
+        switch ($oPamdec->getSLexOpe()) {
+            case '+':
+                $sOperador = 'add';
+                break;
+            case '-':
+                $sOperador = 'sub';
+                break;
+            case '*':
+                $sOperador = 'mul';
+                break;
+            case '/':
+                $sOperador = 'div';
+                break;
+        }
+        $sCodigo = sprintf('%s $v%s %s', $sOperador, $this->getSEndereco(), $oElems->getSCodigoAssembly());
         $this->setSCodigoAssembly($sCodigo);
-        $this->iCont++;
     }
 }

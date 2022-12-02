@@ -63,8 +63,10 @@ class Eid extends AbstractAssembly {
 
     public function toAssembly() {
         if (!empty($this->getSId())) {
+            $sLW = sprintf('lw $t%s, b <br>', $this->getSEndereco());
+            $this->setSLw($sLW);
             $sCodigo = sprintf(
-                '$%s <br>'
+                '$t%s <br>'
                 , $this->getSEndereco()
             );
         } else {

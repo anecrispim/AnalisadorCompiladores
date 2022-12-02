@@ -2,6 +2,7 @@
 abstract class AbstractAssembly {
     private $sCodigoAssembly;
     private $sEndereco;
+    private $sLw;
 
     /**
      * Get the value of sCodigoAssembly
@@ -32,4 +33,18 @@ abstract class AbstractAssembly {
     }
 
     abstract protected function toAssembly();
+
+    /**
+     * Get the value of sLw
+     */
+    public function getSLw() {
+        return $this->sLw;
+    }
+
+    /**
+     * Set the value of sLw
+     */
+    public function setSLw($sLw) {
+        $this->sLw = $sLw;
+    }
 }

@@ -140,19 +140,19 @@ class Se extends AbstractAssembly {
      * Transforma em assembly a condição if
      */
     public function toAssembly() {
-        $sImmediate = sprintf('li $2, %s <br>', $this->getSConstLex());
+        $sImmediate = sprintf('li $v1, %s <br>', $this->getSConstLex());
         if ($this->getSOpeLogLex() == "==") {
-            $sCodigo = sprintf('%s beq $1, $2, %s', $sImmediate, $this->getSEndereco());
+            $sCodigo = sprintf('%s beq $v0, $v1, lb%s', $sImmediate, $this->getSEndereco());
         } else if ($this->getSOpeLogLex() == "!=") {
-            $sCodigo = sprintf('%s bne $1, $2, %s', $sImmediate, $this->getSEndereco());
+            $sCodigo = sprintf('%s bne $v0, $v1, lb%s', $sImmediate, $this->getSEndereco());
         } else if ($this->getSOpeLogLex() == ">") {
-            $sCodigo = sprintf('%s bgt $1, $2, %s', $sImmediate, $this->getSEndereco());
+            $sCodigo = sprintf('%s bgt $v0, $v1, lb%s', $sImmediate, $this->getSEndereco());
         } else if ($this->getSOpeLogLex() == "<") {
-            $sCodigo = sprintf('%s blt $1, $2, %s', $sImmediate, $this->getSEndereco());
+            $sCodigo = sprintf('%s blt $v0, $v1, lb%s', $sImmediate, $this->getSEndereco());
         } else if ($this->getSOpeLogLex() == ">=") {
-            $sCodigo = sprintf('%s bge $1, $2, %s', $sImmediate, $this->getSEndereco());
+            $sCodigo = sprintf('%s bge $v0, $v1, lb%s', $sImmediate, $this->getSEndereco());
         } else if ($this->getSOpeLogLex() == "<=") {
-            $sCodigo = sprintf('%s ble $1, $2, %s', $sImmediate, $this->getSEndereco());
+            $sCodigo = sprintf('%s ble $v0, $v1, lb%s', $sImmediate, $this->getSEndereco());
         }
         $this->setSCodigoAssembly($sCodigo);
     }
